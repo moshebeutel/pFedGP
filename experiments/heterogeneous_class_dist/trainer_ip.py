@@ -16,8 +16,8 @@ from pFedGP.Learner import pFedGPIPComputeLearner, pFedGPIPDataLearner
 
 from experiments.backbone import CNNTarget
 from experiments.heterogeneous_class_dist.clients import BaseClients
-from utils import get_device, set_logger, set_seed, str2bool, detach_to_numpy, save_experiment, \
-                  print_calibration, calibration_search, offset_client_classes, calc_metrics
+from common.utils import get_device, set_logger, set_seed, str2bool, detach_to_numpy, save_experiment, \
+                  print_calibration, calibration_search, calc_metrics
 from experiments.calibrate import ECELoss
 
 parser = argparse.ArgumentParser(description="Personalized Federated Learning")

@@ -5,7 +5,7 @@ if "DISPLAY" not in os.environ or "localhost" in os.environ["DISPLAY"]:
     matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
-from utils import *
+from common.utils import *
 import logging
 import torch.nn.functional as F
 

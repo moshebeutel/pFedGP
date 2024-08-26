@@ -1,11 +1,10 @@
-from pFedGP.node import NodepFedGPFull, NodepFedGPIPData, NodepFedGPIPCompute
-from pFedGP.class_splits import *
-from utils import (detach_to_numpy, pytorch_take)
+from pFedGP.pFedGP.node import NodepFedGPFull, NodepFedGPIPData, NodepFedGPIPCompute
+from pFedGP.pFedGP.class_splits import *
+from common.utils import (detach_to_numpy, pytorch_take)
 import logging
 from torch import nn
 import torch
 from collections import deque
-import copy
 
 
 class BinaryTree(nn.Module):

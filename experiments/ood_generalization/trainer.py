@@ -13,7 +13,7 @@ from pFedGP.Learner import pFedGPFullLearner
 
 from experiments.backbone import CNNTarget
 from experiments.ood_generalization.clients import GenBaseClients
-from utils import get_device, set_logger, set_seed, str2bool, save_experiment, offset_client_classes, calc_metrics
+from common.utils import get_device, set_logger, set_seed, save_experiment, calc_metrics
 
 parser = argparse.ArgumentParser(description="Personalized Federated Learning")
 

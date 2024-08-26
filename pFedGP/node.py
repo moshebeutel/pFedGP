@@ -1,7 +1,7 @@
-from pFedGP.pFedGP_full_data import pFedGPFull, pFedGPFullBound, pFedGPIPData
-from pFedGP.pFedGP_compute import pFedGPIPCompute
+from pFedGP.pFedGP.pFedGP_full_data import pFedGPFull, pFedGPIPData
+from pFedGP.pFedGP.pFedGP_compute import pFedGPIPCompute
 from torch import nn
-from utils import *
+from common.utils import *
 
 
 class Node(nn.Module):

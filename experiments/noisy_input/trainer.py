@@ -14,8 +14,8 @@ from pFedGP.Learner import pFedGPFullLearner
 
 from experiments.backbone import CNNTarget
 from experiments.noisy_input.clients import NoisyClients
-from utils import get_device, set_logger, set_seed, str2bool, detach_to_numpy, \
-                  save_experiment, offset_client_classes, calc_metrics
+from common.utils import get_device, set_logger, set_seed, detach_to_numpy, \
+                  save_experiment, calc_metrics
 
 parser = argparse.ArgumentParser(description="Personalized Federated Learning")
 

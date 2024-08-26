@@ -8,7 +8,7 @@ from tqdm import tqdm
 from collections import defaultdict
 from imagecorruptions import corrupt
 
-from utils import set_seed, set_logger
+from common.utils import set_seed, set_logger
 from experiments.heterogeneous_class_dist.dataset import gen_random_loaders
 
 SEVERITIES = [3, 4, 5]

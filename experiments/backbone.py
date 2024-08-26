@@ -1,6 +1,7 @@
 import torch.nn.functional as F
 from torch import nn
 
+
 class CNNTarget(nn.Module):
     def __init__(self, in_channels=3, n_kernels=16, embedding_dim=84):
         super(CNNTarget, self).__init__()
@@ -8,7 +9,7 @@ class CNNTarget(nn.Module):
         self.conv1 = nn.Conv2d(in_channels, n_kernels, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(n_kernels, 2 * n_kernels, 5)
-        self.fc1 = nn.Linear(2 * n_kernels * 5 * 5, 120)
+        self.fc1 = nn.Linear(32 * n_kernels, 120)
         self.fc2 = nn.Linear(120, 84)
 
         self.embed_dim = nn.Linear(84, embedding_dim)

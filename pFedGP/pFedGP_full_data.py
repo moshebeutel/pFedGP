@@ -2,11 +2,11 @@ from collections import namedtuple
 import pypolyagamma
 from gpytorch.utils.quadrature import GaussHermiteQuadrature1D
 from torch import nn
-from pFedGP.kernel_class import OneClassGPModel
+from pFedGP.pFedGP.kernel_class import OneClassGPModel
 from scipy.special import logsumexp
 import torch.nn.functional as F
 
-from utils import *
+from common.utils import *
 
 NodeGibbsState = namedtuple("NodeGibbsState", ["omega", "f"])
 NodeModelState = namedtuple(

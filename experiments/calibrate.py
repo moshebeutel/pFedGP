@@ -130,10 +130,10 @@ def plot_calibration_error(probs, targets, path, color='darkblue'):
     plt.xlabel("Confidence")
     plt.ylabel("Accuracy")
 
-    logging.info(path)
-    logging.info(bin_uppers)
-    logging.info(bin_lowers)
-    logging.info(plot_acc)
+    # logging.info(path)
+    # logging.info(bin_uppers)
+    # logging.info(bin_lowers)
+    # logging.info(plot_acc)
 
     plt.savefig(path, bbox_inches="tight", dpi=300)
     plt.close()

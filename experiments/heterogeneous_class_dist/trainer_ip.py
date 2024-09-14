@@ -101,7 +101,7 @@ if args.exp_name != '':
 logging.info(str(args))
 args.out_dir = (Path(args.save_path) / exp_name).as_posix()
 out_dir = save_experiment(args, None, return_out_dir=True, save_results=False)
-logging.info(out_dir)
+# logging.info(out_dir)
 
 ECE_module = ECELoss()
 
@@ -317,7 +317,7 @@ for step in step_iter:
     if (step + 1) % args.eval_every == 0 or (step + 1) == args.num_steps:
         val_results, labels_vs_preds_val = eval_model(net, GPs, X_bar, clients, split="val")
         val_avg_loss, val_avg_acc = calc_metrics(val_results)
-        logging.info(f"Step: {step + 1}, AVG Loss: {val_avg_loss:.4f},  AVG Acc Val: {val_avg_acc:.4f}")
+        # logging.info(f"Step: {step + 1}, AVG Loss: {val_avg_loss:.4f},  AVG Acc Val: {val_avg_acc:.4f}")
 
         results['val_avg_loss'].append(val_avg_loss)
         results['val_avg_acc'].append(val_avg_acc)
@@ -342,8 +342,8 @@ X_bar = best_X_bar
 test_results, labels_vs_preds_test = eval_model(net, GPs, X_bar, clients, split="test")
 avg_test_loss, avg_test_acc = calc_metrics(test_results)
 
-logging.info(f"\nStep: {step + 1}, Best Val Loss: {best_val_loss:.4f}, Best Val Acc: {best_acc:.4f}")
-logging.info(f"\nStep: {step + 1}, Test Loss: {avg_test_loss:.4f}, Test Acc: {avg_test_acc:.4f}")
+# logging.info(f"\nStep: {step + 1}, Best Val Loss: {best_val_loss:.4f}, Best Val Acc: {best_acc:.4f}")
+# logging.info(f"\nStep: {step + 1}, Test Loss: {avg_test_loss:.4f}, Test Acc: {avg_test_acc:.4f}")
 
 best_temp = calibration_search(ECE_module, out_dir, best_labels_vs_preds_val, args.color, 'calibration_val.png')
 logging.info(f"best calibration temp: {best_temp}")

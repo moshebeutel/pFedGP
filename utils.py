@@ -212,7 +212,7 @@ def psd_safe_cholesky(A, upper=False, out=None, jitter=None):
             as 1e-6 (float) or 1e-8 (double)
     """
     try:
-        L = torch.cholesky(A, upper=upper, out=out)
+        L = torch.linalg.cholesky(A, upper=upper, out=out)
         return L
     except RuntimeError as e:
         isnan = torch.isnan(A)
@@ -248,10 +248,10 @@ def print_calibration(ECE_module, out_dir, lbls_vs_target, file_name, color, tem
 
     ece_metrics = ECE_module.forward(probs, targets, (out_dir / file_name).as_posix(),
                                      color=color, temp=temp)
-    logging.info(f"{file_name}, "
-                 f"ECE: {ece_metrics[0].item():.3f}, "
-                 f"MCE: {ece_metrics[1].item():.3f}, "
-                 f"BRI: {ece_metrics[2].item():.3f}")
+    # logging.info(f"{file_name}, "
+    #              f"ECE: {ece_metrics[0].item():.3f}, "
+    #              f"MCE: {ece_metrics[1].item():.3f}, "
+    #              f"BRI: {ece_metrics[2].item():.3f}")
 
 
 def calibration_search(ECE_module, out_dir, lbls_vs_target, color, file_name):
@@ -265,11 +265,11 @@ def calibration_search(ECE_module, out_dir, lbls_vs_target, color, file_name):
 
     ece_metrics = ECE_module.forward(probs, targets, (out_dir / file_name).as_posix(),
                                      color=color, temp=best_temp)
-    logging.info(f"{file_name}, "
-                 f"Best Temperature: {best_temp:.3f}, "
-                 f"ECE: {ece_metrics[0].item():.3f}, "
-                 f"MCE: {ece_metrics[1].item():.3f}, "
-                 f"BRI: {ece_metrics[2].item():.3f}")
+    # logging.info(f"{file_name}, "
+    #              f"Best Temperature: {best_temp:.3f}, "
+    #              f"ECE: {ece_metrics[0].item():.3f}, "
+    #              f"MCE: {ece_metrics[1].item():.3f}, "
+    #              f"BRI: {ece_metrics[2].item():.3f}")
 
     return best_temp
 

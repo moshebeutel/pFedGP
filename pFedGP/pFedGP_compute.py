@@ -6,7 +6,7 @@ from pFedGP.pFedGP.kernel_class import OneClassGPModel
 from torch.distributions import MultivariateNormal
 import torch.nn.functional as F
 
-from common.utils import *
+from pFedGP.utils import *
 
 NodeGibbsState = namedtuple("NodeGibbsState", ["omega", "f"])
 NodeModelState = namedtuple(
@@ -45,16 +45,16 @@ class pFedGPIPCompute(nn.Module):
         return y_output_onehot.scatter_(1, y.unsqueeze(1), 1)
 
     def print_hyperparams(self):
-        logging.info(f"output scale: "
-                     f"{np.round_(detach_to_numpy(self.model.covar_module.outputscale.squeeze()), decimals=2)}")
+        # logging.info(f"output scale: "
+        #              f"{np.round_(detach_to_numpy(self.model.covar_module.outputscale.squeeze()), decimals=2)}")
         if self.kernel_func == "RBFKernel":
             lengthscale = detach_to_numpy(self.model.covar_module.base_kernel.lengthscale.squeeze())
-            logging.info(f"length scale: "
-                         f"{np.round_(lengthscale, decimals=2)}")
+            # logging.info(f"length scale: "
+            #              f"{np.round_(lengthscale, decimals=2)}")
         elif self.kernel_func == "LinearKernel":
             variance = detach_to_numpy(self.model.covar_module.base_kernel.variance.squeeze())
-            logging.info(f"variance: "
-                         f"{np.round_(variance, decimals=2)}")
+            # logging.info(f"variance: "
+            #              f"{np.round_(variance, decimals=2)}")
 
     def train_test_split(self, X, Y):
 
@@ -85,7 +85,7 @@ class pFedGPIPCompute(nn.Module):
 
         if to_print:
             self.print_hyperparams()
-            logging.info(f"Loss: {nmll.item() * X.shape[0]:.5f}, Avg. Loss: {nmll.item():.5f}")
+            # logging.info(f"Loss: {nmll.item() * X.shape[0]:.5f}, Avg. Loss: {nmll.item():.5f}")
 
         return nmll
 
@@ -111,7 +111,7 @@ class pFedGPIPCompute(nn.Module):
 
         if to_print:
             self.print_hyperparams()
-            logging.info(f"Loss: {loss.item() * X_test.shape[0]:.5f}, Avg. Loss: {loss.item():.5f}")
+            # logging.info(f"Loss: {loss.item() * X_test.shape[0]:.5f}, Avg. Loss: {loss.item():.5f}")
 
         return loss
 

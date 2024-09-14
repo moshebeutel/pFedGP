@@ -91,10 +91,10 @@ exp_name = f'pFedGP-OOD-Gen_{args.data_name}_num_clients_{args.num_clients}_seed
 if args.exp_name != '':
     exp_name += '_' + args.exp_name
 
-logging.info(str(args))
+# logging.info(str(args))
 args.out_dir = (Path(args.save_path) / exp_name).as_posix()
 out_dir = save_experiment(args, None, return_out_dir=True, save_results=False)
-logging.info(out_dir)
+# logging.info(out_dir)
 
 @torch.no_grad()
 def eval_model(global_model, client_ids, GPs, clients, split):
@@ -292,7 +292,7 @@ for step in step_iter:
     if (step + 1) % args.eval_every == 0 or (step + 1) == args.num_steps:
         val_results = eval_model(net, range(args.num_novel_clients, args.num_clients), GPs, clients, split="val")
         val_avg_loss, val_avg_acc = calc_metrics(val_results)
-        logging.info(f"Step: {step + 1}, AVG Loss: {val_avg_loss:.4f},  AVG Acc Val: {val_avg_acc:.4f}")
+        # logging.info(f"Step: {step + 1}, AVG Loss: {val_avg_loss:.4f},  AVG Acc Val: {val_avg_acc:.4f}")
 
         if best_acc < val_avg_acc:
             best_val_loss = val_avg_loss
@@ -309,8 +309,8 @@ net = best_model
 test_results = eval_model(net, range(args.num_novel_clients, args.num_clients), GPs, clients, split="test")
 avg_test_loss, avg_test_acc = calc_metrics(test_results)
 
-logging.info(f"\nStep: {step + 1}, Best Val Loss: {best_val_loss:.4f}, Best Val Acc: {best_acc:.4f}")
-logging.info(f"\nStep: {step + 1}, Test Loss: {avg_test_loss:.4f}, Test Acc: {avg_test_acc:.4f}")
+# logging.info(f"\nStep: {step + 1}, Best Val Loss: {best_val_loss:.4f}, Best Val Acc: {best_acc:.4f}")
+# logging.info(f"\nStep: {step + 1}, Test Loss: {avg_test_loss:.4f}, Test Acc: {avg_test_acc:.4f}")
 
 
 results['best_step'].append(best_step)
@@ -339,4 +339,4 @@ for alpha_gen in args.alpha_gen:
     avg_test_loss, avg_test_acc = calc_metrics(test_results)
     gen_best_test_acc = avg_test_acc
 
-    logging.info(f"Alpha: {alpha_gen:.3f}. Gen. Test Loss: {avg_test_loss:.4f}, Gen. Test Accuracy: {avg_test_acc:.4f}")
+    # logging.info(f"Alpha: {alpha_gen:.3f}. Gen. Test Loss: {avg_test_loss:.4f}, Gen. Test Accuracy: {avg_test_acc:.4f}")

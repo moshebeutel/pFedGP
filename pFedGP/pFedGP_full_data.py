@@ -6,7 +6,7 @@ from pFedGP.pFedGP.kernel_class import OneClassGPModel
 from scipy.special import logsumexp
 import torch.nn.functional as F
 
-from common.utils import *
+from pFedGP.utils import *
 
 NodeGibbsState = namedtuple("NodeGibbsState", ["omega", "f"])
 NodeModelState = namedtuple(
@@ -45,16 +45,16 @@ class pFedGPFull(nn.Module):
         return y_output_onehot.scatter_(1, y.unsqueeze(1), 1)
 
     def print_hyperparams(self):
-        logging.info(f"output scale: "
-                     f"{np.round_(detach_to_numpy(self.model.covar_module.outputscale.squeeze()), decimals=2)}")
+        # logging.info(f"output scale: "
+        #              f"{np.round_(detach_to_numpy(self.model.covar_module.outputscale.squeeze()), decimals=2)}")
         if self.kernel_func == "RBFKernel":
             lengthscale = detach_to_numpy(self.model.covar_module.base_kernel.lengthscale.squeeze())
-            logging.info(f"length scale: "
-                         f"{np.round_(lengthscale, decimals=2)}")
+            # logging.info(f"length scale: "
+            #              f"{np.round_(lengthscale, decimals=2)}")
         elif self.kernel_func == "LinearKernel":
             variance = detach_to_numpy(self.model.covar_module.base_kernel.variance.squeeze())
-            logging.info(f"variance: "
-                         f"{np.round_(variance, decimals=2)}")
+            # logging.info(f"variance: "
+            #              f"{np.round_(variance, decimals=2)}")
 
     def train_test_split(self, X, Y):
 
@@ -83,7 +83,7 @@ class pFedGPFull(nn.Module):
 
         if to_print:
             self.print_hyperparams()
-            logging.info(f"Loss: {nmll.item() * X.shape[0]:.5f}, Avg. Loss: {nmll.item():.5f}")
+            # logging.info(f"Loss: {nmll.item() * X.shape[0]:.5f}, Avg. Loss: {nmll.item():.5f}")
 
         return nmll
 
@@ -107,7 +107,7 @@ class pFedGPFull(nn.Module):
 
         if to_print:
             self.print_hyperparams()
-            logging.info(f"Loss: {loss.item() * X_test.shape[0]:.5f}, Avg. Loss: {loss.item():.5f}")
+            # logging.info(f"Loss: {loss.item() * X_test.shape[0]:.5f}, Avg. Loss: {loss.item():.5f}")
 
         return loss
 
@@ -395,7 +395,7 @@ class pFedGPIPData(pFedGPFull):
 
         if to_print:
             self.print_hyperparams()
-            logging.info(f"Loss: {loss.item() * X.shape[0]:.5f}, Avg. Loss: {loss.item():.5f}")
+            # logging.info(f"Loss: {loss.item() * X.shape[0]:.5f}, Avg. Loss: {loss.item():.5f}")
 
         return loss
 
@@ -681,7 +681,8 @@ class pFedGPFullBound(pFedGPFull):
             log_q_omega.append(np.sum(np.log(pypolyagamma.pgpdf(dup_omega_k, b, f_not_k).reshape(M, -1)), axis=1))
 
             if k % 50 == 0:
-                logging.info(f"Finished Estimating ω_{k}")
+                pass
+                # logging.info(f"Finished Estimating ω_{k}")
 
         # log q(ω_k | X, Y) ~ log (1 / M) * sum_over_f exp(q(ω_k | f, X, Y))
         log_q_omega_k = logsumexp(np.asarray(log_q_omega), axis=1) - np.log(M)

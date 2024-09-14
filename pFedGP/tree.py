@@ -1,6 +1,6 @@
 from pFedGP.pFedGP.node import NodepFedGPFull, NodepFedGPIPData, NodepFedGPIPCompute
 from pFedGP.pFedGP.class_splits import *
-from common.utils import (detach_to_numpy, pytorch_take)
+from pFedGP.utils import (detach_to_numpy, pytorch_take)
 import logging
 from torch import nn
 import torch
@@ -35,7 +35,7 @@ class BinaryTree(nn.Module):
     def _label_leaves(self, node, leaf_class):
         if node is not None:
             leaf_class = self._label_leaves(node.left_child, leaf_class)
-            logging.info(str(node.classes) + ' ')
+            # logging.info(str(node.classes) + ' ')
             if node.classes.size(0) == 1:
                 self.map_orig_to_tree_lbls[node.classes.item()] = leaf_class
                 leaf_class += 1
@@ -123,13 +123,15 @@ class BinaryTreepFedGPFull(BinaryTree):
         if node.classes.size(0) > 1 and len(batch_classes.intersection(node_classes)) > 0:
             loss += self._train_tree(node.left_child, X, Y, to_print)
             if to_print:
-                logging.info('Training GP on classes: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
+                pass
+                # logging.info('Training GP on classes: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
             node_X, node_Y = self._extract_node_data(node, X, Y)
             loss += node.train_loop(node_X, node_Y, to_print)
             loss += self._train_tree(node.right_child, X, Y, to_print)
         else:
             if to_print:
-                logging.info('No need for training. Class: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
+                pass
+                # logging.info('No need for training. Class: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
         return loss
 
     def _extract_node_data(self, node, X, Y):
@@ -275,13 +277,15 @@ class BinaryTreepFedGPIPData(BinaryTree):
         if node.classes.size(0) > 1 and len(batch_classes.intersection(node_classes)) > 0:
             loss += self._train_tree(node.left_child, X, Y, X_bar, to_print)
             if to_print:
-                logging.info('Training GP on classes: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
+                pass
+                # logging.info('Training GP on classes: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
             node_X, node_Y, node_Xbar = self._extract_node_data(node, X, Y, X_bar)
             loss += node.train_loop(node_X, node_Y, node_Xbar, to_print)
             loss += self._train_tree(node.right_child, X, Y, X_bar, to_print)
         else:
             if to_print:
-                logging.info('No need for training. Class: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
+                pass
+                # logging.info('No need for training. Class: ' + str(detach_to_numpy(node.classes).tolist()) + ' ')
         return loss
 
     def _extract_node_data(self, node, X, Y, X_bar):
